@@ -1,7 +1,8 @@
 {
   "autoload": {
     "psr-4": {
-        "OOP\\": "OOP"
+        "OOP\\": "OOP",
+        "PHPBasic\\": "PHPBasics"
     }
   },
   "require-dev": {
