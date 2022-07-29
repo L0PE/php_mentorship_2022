@@ -4,4 +4,4 @@ use Http\Api\Controller;
 
 require_once '../../vendor/autoload.php';
 
-Controller::statusCodes()->send();
+Controller::randomStatusCodes()->send();

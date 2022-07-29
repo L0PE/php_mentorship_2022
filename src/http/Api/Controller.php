@@ -17,7 +17,7 @@ class Controller
         ]);
     }
 
-    public static function statusCodes(): JsonResponse
+    public static function randomStatusCodes(): JsonResponse
     {
         $code = array_rand(Response::$statusTexts);
 
