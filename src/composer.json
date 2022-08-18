@@ -1,4 +1,6 @@
 {
+  "name": "lope/mentorship22",
+  "description": "PHP mentorship 2022",
   "autoload": {
     "psr-4": {
         "OOP\\": "OOP",
