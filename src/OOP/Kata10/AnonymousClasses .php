@@ -46,7 +46,7 @@ $object_oriented_php = new class() {
 
     public function advertise(string $name): string
     {
-        return 'Hey NAME_HERE, don\'t forget to check out this great PHP Kata Series authored by Donald called "Object-Oriented PHP"';
+        return sprintf('Hey %s, don\'t forget to check out this great PHP Kata Series authored by Donald called "Object-Oriented PHP"', $name);
     }
 
     public function get_kata_by_number(int $kay): string

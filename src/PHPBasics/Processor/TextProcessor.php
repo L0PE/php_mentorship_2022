@@ -63,7 +63,7 @@ class TextProcessor
 
     public function isTextPalindrome(): bool
     {
-        $text = mb_strtolower(preg_replace('/\s|\.|,|!|;|\?/', '', $this->text));
+        $text = mb_strtolower(preg_replace('/[\s.,!;?]/', '', $this->text));
 
         return $text === $this->getReversedString($text);
     }

@@ -37,7 +37,7 @@
         <div class="row photos">
             <?php foreach ($favourites as $favourite): ?>
                 <div class="col-sm-6 col-md-4 col-lg-3 item">
-                    <img class="img-fluid" src="<?= $favourite['image'] ?>">
+                    <img class="img-fluid" src="<?= $favourite['image'] ?>" alt="Cat image.F">
                     <form method="post" action="../Actions/RemoveFavorite.php">
                         <input type="hidden" name="id" value="<?= $favourite['id'] ?>">
                         <button type="submit" name="submit" class="btn btn-success mx-auto d-block mt-3">Remove</button>
