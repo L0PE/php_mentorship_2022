@@ -12,7 +12,7 @@
     <div class="py-5 text-center">
         <h2 class="display-2">Books</h2>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="main">
         <div class="container-fluid">
             <a class="me-3 btn btn-outline-success" href="<?=parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH)?>">Home</a>
             <a class="btn btn-outline-success" href="../Actions/store.php">Add book</a>

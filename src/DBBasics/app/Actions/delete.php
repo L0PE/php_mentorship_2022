@@ -3,7 +3,7 @@
 require_once '../../config/bootstrap.php';
 
 if (!isset($_REQUEST['id'])) {
-    header('HTTP/1.0 404 Not Found');;
+    header('HTTP/1.0 404 Not Found');
     exit();
 }
 
