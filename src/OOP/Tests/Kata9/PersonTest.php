@@ -16,6 +16,7 @@ class PersonTest extends TestCase
         $person = new class (static::NAME, static::AGE, static::OCCUPATION) extends Person {
             public function introduce()
             {
+                //This is an abstract method that is not tested.
             }
         };
 
