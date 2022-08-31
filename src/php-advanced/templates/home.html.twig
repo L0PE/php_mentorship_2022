@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Text information{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Text information</h2>
+        <p class="lead">Get all data about your text. Work with all languages</p>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div>
+                    <a class="me-3 btn btn-outline-success" href="{{ path('home') }}">Home</a>
+                    <a class="me-3 btn btn-outline-success" href="{{ path('global_statistic') }}">Global Statistic</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="row">
+        <form method="post" enctype="multipart/form-data" action="{{ path('home') }}">
+            <div class="mb-3">
+                <label for="text" class="form-label">Text</label>
+                <textarea class="form-control" name="text" rows="5" placeholder="Input your text here" id="text"
+                          aria-describedby="emailHelp"></textarea>
+            </div>
+            <label for="basic-url" class="form-label">Url for text</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="url">
+            </div>
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="inputFile">Upload</label>
+                <input type="file" class="form-control" id="inputFile" name="file">
+            </div>
+            <button id="submit" name="submit" type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    {% if (render_text_info) %}
+        <div class="row mt-5">
+            <h2 class="text-center">Statistic</h2>
+            <div class="alert">
+                <div class="container-fluid">
+                    <div>
+                        <a class="me-3 btn btn-outline-success"
+                           href="{{ path('export_xlsx', {hash: text.Hash}) }}">XLSX</a>
+                        <a class="me-3 btn btn-outline-success"
+                           href="{{ path('export_xml', {hash: text.Hash}) }}">XML</a>
+                        <a class="btn btn-outline-success" href="{{ path('export_csv', {hash: text.Hash}) }}">CSV</a>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-secondary">
+                {{ text.Text|striptags }}
+            </div>
+            <dl class="row">
+                <dt class="col-sm-5">Number of characters:</dt>
+                <dd class="col-sm-7">{{ text.NumberOfCharacters }}</dd>
+
+                <dt class="col-sm-5">Number of words:</dt>
+                <dd class="col-sm-7">{{ text.NumberOfWords }}</dd>
+
+                <dt class="col-sm-5">Number of sentences:</dt>
+                <dd class="col-sm-7">{{ text.NumberOfSentences }}</dd>
+
+                <dt class="col-sm-5 text-truncate">Frequency of characters:</dt>
+                <dd class="col-sm-7">
+                    {% for character, frequency in text.frequencyOfCharacters %}
+                        <p>{{ character }}: {{ frequency }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5 text-truncate">Distribution of characters as a percentages of total:</dt>
+                <dd class="col-sm-7">
+                    {% for character, percent in text.DistributionOfCharacters %}
+                        <p>{{ character }}: {{ percent }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5">Average Word Length:</dt>
+                <dd class="col-sm-7">{{ text.AverageWordLength }}</dd>
+
+                <dt class="col-sm-5">The average number of words in a sentence:</dt>
+                <dd class="col-sm-7">{{ text.AverageNumberOfWordsInSentence }}</dd>
+
+                <dt class="col-sm-5">Top 10 most used words:</dt>
+                <dd class="col-sm-7">
+                    {% for word in text.MostUsedWords %}
+                        <p>{{ word|striptags }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5">Top 10 longest words:</dt>
+                <dd class="col-sm-7">
+                    {% for word in text.LongestWords %}
+                        <p>{{ word|striptags }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5">Top 10 shortest words:</dt>
+                <dd class="col-sm-7">
+                    {% for word in text.ShortestWords %}
+                        <p>{{ word|striptags }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5">Top 10 longest sentences:</dt>
+                <dd class="col-sm-7">
+                    {% for sentence in text.LongestSentences %}
+                        <p>{{ sentence|striptags }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5">Top 10 shortest sentences:</dt>
+                <dd class="col-sm-7">
+                    {% for sentence in text.ShortestSentences %}
+                        <p>{{ sentence|striptags }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5">Number of palindrome words:</dt>
+                <dd class="col-sm-7">{{ text.NumberOfPalindromes }}</dd>
+
+                <dt class="col-sm-5">Top 10 longest palindromes:</dt>
+                <dd class="col-sm-7">
+                    {% for palindrome in text.LongestPalindromes %}
+                        <p>{{ palindrome|striptags }}</p>
+                    {% endfor %}
+                </dd>
+
+                <dt class="col-sm-5">Is the whole text a palindrome:</dt>
+                <dd class="col-sm-7">{{ (text.isPalindrome) ? "yes" : "no" }}</dd>
+
+                <dt class="col-sm-5">The reversed text:</dt>
+                <dd class="col-sm-7">{{ text.ReversedText|striptags }}</dd>
+
+                <dt class="col-sm-5">The reversed text but the character order in words kept intact:</dt>
+                <dd class="col-sm-7">{{ text.ReversedWords|striptags }}</dd>
+
+                <dt class="col-sm-5">The time it took to process the text:</dt>
+                <dd class="col-sm-7">{{ text.TakenTime }}</dd>
+
+                <dt class="col-sm-5">Date and time when report was generated:</dt>
+                <dd class="col-sm-7">{{ text.CreatedAt }}</dd>
+            </dl>
+        </div>
+    {% endif %}
+    <div class="row mt-5">
+        <h2 class="text-center">Your last actions</h2>
+        {% for last_text in last_actions %}
+            <div class="alert alert-secondary">
+                <a class="text-decoration-none" href="{{ path('text_by_hash', {hash: last_text.Hash}) }}">{{ last_text.Text|striptags[:100] }}...</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
