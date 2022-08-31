@@ -21,7 +21,7 @@ class GetTextStatisticUseCase
 
     public function handle(): Text
     {
-        $textEntity = $this->repository->findOneByHash(md5($this->text));
+        $textEntity = $this->repository->findOneByHash(hash("sha512", $this->text));
 
         if (!is_null($textEntity)) {
             return $textEntity;

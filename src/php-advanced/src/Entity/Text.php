@@ -84,7 +84,7 @@ class Text
     {
         $this->text = $text;
 
-        $this->hash = md5($text);
+        $this->hash = hash("sha512", $text);
         $this->number_of_characters = mb_strlen($this->text);
         $this->number_of_words = count($this->getAllWords());
         $this->number_of_sentences = count($this->getSentences());
