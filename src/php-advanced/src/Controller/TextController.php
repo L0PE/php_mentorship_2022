@@ -37,7 +37,7 @@ class TextController extends AbstractController
             ]);
         }
 
-        $textEntity = $useCase->handle();
+        $textEntity = $useCase->handle($request);
 
         return is_null($textEntity) ? new Response(status: 404) : $this->render('home.html.twig', [
             'render_text_info' => true,

@@ -8,6 +8,7 @@ use App\System\UseCases\GetTextStatisticUseCase;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GetTextStatisticUseCaseTest extends KernelTestCase
@@ -20,6 +21,8 @@ class GetTextStatisticUseCaseTest extends KernelTestCase
 
     private SessionInterface $sessionMock;
 
+    private Request $requestMock;
+
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -31,6 +34,7 @@ class GetTextStatisticUseCaseTest extends KernelTestCase
         $this->textRepositoryMock = $this->createMock(TextRepository::class);
         $this->managerRegistryMock = $this->createMock(ManagerRegistry::class);
         $this->sessionMock = $this->getMockBuilder(SessionInterface::class)->getMock();
+        $this->requestMock = $this->createMock(Request::class);
     }
 
     public function test_handle_whit_new_text(): void
@@ -59,7 +63,9 @@ class GetTextStatisticUseCaseTest extends KernelTestCase
         $this->sessionMock->expects($this->once())
             ->method('set');
 
-        $this->assertInstanceOf(Text::class, $getTextStatisticUseCase->handle());
+        $this->requestMock->server['REQUEST_TIME_FLOAT'] = microtime(true);
+
+        $this->assertInstanceOf(Text::class, $getTextStatisticUseCase->handle($this->requestMock));
     }
 
     public function test_handle_whit_text_that_exist_in_data_base(): void
@@ -86,6 +92,6 @@ class GetTextStatisticUseCaseTest extends KernelTestCase
         $this->sessionMock->expects($this->never())
             ->method('set');
 
-        $getTextStatisticUseCase->handle();
+        $getTextStatisticUseCase->handle($this->requestMock);
     }
 }

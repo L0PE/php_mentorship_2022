@@ -10,11 +10,19 @@
         My custom rule set that checks my code...
     </description>
 
-    <rule ref="rulesets/cleancode.xml" />
+    <rule ref="rulesets/cleancode.xml" >
+        <exclude name="BooleanArgumentFlag" />
+        <exclude name="StaticAccess" />
+    </rule>
     <rule ref="rulesets/codesize.xml" >
         <exclude name="TooManyPublicMethods" />
+        <exclude name="TooManyFields" />
     </rule>
-    <rule ref="rulesets/controversial.xml" />
+    <rule ref="rulesets/controversial.xml" >
+        <exclude name="CamelCaseParameterName"/>
+        <exclude name="CamelCaseVariableName" />
+        <exclude name="CamelCasePropertyName" />
+    </rule>
     <rule ref="rulesets/naming.xml" >
         <exclude name="ShortVariable" />
         <exclude name="LongVariable" />

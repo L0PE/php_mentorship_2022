@@ -6,6 +6,7 @@ use App\Entity\Text;
 use App\Repository\TextRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GetTextStatisticFromFileCase
@@ -18,7 +19,7 @@ class GetTextStatisticFromFileCase
     ) {
     }
 
-    public function handle(): ?Text
+    public function handle(Request $request): ?Text
     {
         if (
             !$this->file->isFile()
@@ -35,6 +36,6 @@ class GetTextStatisticFromFileCase
                 $this->session,
                 $this->file->getContent()
             )
-        )->handle();
+        )->handle($request);
     }
 }

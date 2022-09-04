@@ -5,6 +5,7 @@ namespace App\System\UseCases;
 use App\Entity\Text;
 use App\Repository\TextRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -19,7 +20,7 @@ class GetTextStatisticFromUrlUseCase
     ) {
     }
 
-    public function handle(): ?Text
+    public function handle(Request $request): ?Text
     {
         $response = $this->client->request(
             'GET',
@@ -37,6 +38,6 @@ class GetTextStatisticFromUrlUseCase
                 $this->session,
                 $response->getContent(false)
             )
-        )->handle();
+        )->handle($request);
     }
 }

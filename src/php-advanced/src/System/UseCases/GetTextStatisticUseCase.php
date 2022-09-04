@@ -5,7 +5,10 @@ namespace App\System\UseCases;
 use App\Entity\Text;
 use App\Repository\TextRepository;
 use App\System\Processor\TextProcessor;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GetTextStatisticUseCase
@@ -18,7 +21,7 @@ class GetTextStatisticUseCase
     ) {
     }
 
-    public function handle(): Text
+    public function handle(Request $request): Text
     {
         $textEntity = $this->repository->findOneByHash(hash("sha512", $this->text));
 
@@ -44,8 +47,8 @@ class GetTextStatisticUseCase
         $textProcessor->frequencyOfCharacters();
         $textProcessor->distributionOfCharactersAsPercentage();
 
-        $textEntity->setTakenTime((microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]) * 100);
-        $textEntity->setCreatedAt(new \DateTime());
+        $textEntity->setTakenTime((microtime(true) - $request->server['REQUEST_TIME_FLOAT']) * 100);
+        $textEntity->setCreatedAt(new DateTime());
 
         $entityManager = $this->doctrine->getManager();
 
