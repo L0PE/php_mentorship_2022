@@ -47,7 +47,7 @@ class GetTextStatisticUseCase
         $textProcessor->frequencyOfCharacters();
         $textProcessor->distributionOfCharactersAsPercentage();
 
-        $textEntity->setTakenTime((microtime(true) - $request->server['REQUEST_TIME_FLOAT']) * 100);
+        $textEntity->setTakenTime((microtime(true) - $request->server->get('REQUEST_TIME_FLOAT')) * 100);
         $textEntity->setCreatedAt(new DateTime());
 
         $entityManager = $this->doctrine->getManager();
