@@ -38,7 +38,7 @@ jobs:
     - name: Run CS for PHPBasic
       run: |
         ./vendor/bin/phpcs --standard=PSR12 ./PHPBasics/Processor/ ./PHPBasics/index.php
-        ./vendor/bin/phpcs --standard=PSR12 --exclude=PSR1.Methods.CamelCapsMethodName ./PHPBasics/Test/
+        ./vendor/bin/phpcs --standard=PSR12 --exclude=PSR1.Methods.CamelCapsMethodName ./PHPBasics/Tests/
 
     - name: Run CS for php-advanced
       run: |
