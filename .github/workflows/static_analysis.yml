@@ -34,7 +34,12 @@ jobs:
           ${{ runner.os }}-php-
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-      
+
+    - name: Run CS for php-advanced
+      run: |
+        ./vendor/bin/phpcs --standard=PSR12 ./php-advanced/src,./php-advanced/templates/
+        ./vendor/bin/phpcs --standard=PSR12 --exclude=PSR1.Methods.CamelCapsMethodName php-advanced/tests/Unit/
+
     - name: Run phpmd
       run: |
         ./vendor/bin/phpmd ./PHPBasics/Processor/,./PHPBasics/index.php github phpmd.ruleset.xml
