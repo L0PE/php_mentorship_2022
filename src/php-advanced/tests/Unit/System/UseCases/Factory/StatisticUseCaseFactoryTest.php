@@ -103,7 +103,7 @@ class StatisticUseCaseFactoryTest extends TestCase
 
         $this->requestMock->files = $this->createMock(FileBag::class);
 
-        $this->requestMock->files->expects($this->exactly(2))
+        $this->requestMock->files->expects($this->exactly(1))
             ->method('get')
             ->with('file')
             ->willReturn(null);
