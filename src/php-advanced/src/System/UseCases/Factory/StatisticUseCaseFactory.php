@@ -20,7 +20,10 @@ class StatisticUseCaseFactory
     ) {
     }
 
-    public function getUseCase(Request $request, SessionInterface $session)
+    public function getUseCase(Request $request, SessionInterface $session): GetTextStatisticUseCase|
+        GetTextStatisticFromUrlUseCase|
+        GetTextStatisticFromFileCase|
+        null
     {
         if ($request->get('text')) {
             return new GetTextStatisticUseCase($this->repository, $this->doctrine, $session, $request->get('text'));

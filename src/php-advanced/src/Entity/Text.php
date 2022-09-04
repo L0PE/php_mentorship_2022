@@ -13,6 +13,7 @@ class Text
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    //@phpstan-ignore-next-line
     private int $id;
 
     #[Ignore]
@@ -47,35 +48,59 @@ class Text
     #[ORM\Column(name: 'average_word_length', type: 'float')]
     private float $average_word_length;
 
-    #[ORM\Column(name: 'average_number_of_words_in_sentence', type: 'integer')]
-    private int $average_number_of_words_in_sentence;
+    #[ORM\Column(name: 'average_number_of_words_in_sentence', type: 'float')]
+    private float $average_number_of_words_in_sentence;
 
+    /**
+     * @var array<string, int>
+     */
     #[ORM\Column(name: 'frequency_of_characters', type: 'json')]
     private array $frequency_of_characters;
 
+    /**
+     * @var array<string, float>
+     */
     #[ORM\Column(name: 'distribution_of_characters', type: 'json')]
     private array $distribution_of_characters;
 
+    /**
+     * @var array<int, string>
+     */
     #[ORM\Column(name: 'most_used_words', type: 'json')]
     private array $most_used_words;
 
+    /**
+     * @var array<int, string>
+     */
     #[ORM\Column(name: 'longest_words', type: 'json')]
     private array $longest_words;
 
+    /**
+     * @var array<int, string>
+     */
     #[ORM\Column(name: 'shortest_words', type: 'json')]
     private array $shortest_words;
 
+    /**
+     * @var array<int, string>
+     */
     #[ORM\Column(name: 'longest_sentences', type: 'json')]
     private array $longest_sentences;
 
+    /**
+     * @var array<int, string>
+     */
     #[ORM\Column(name: 'shortest_sentences', type: 'json')]
     private array $shortest_sentences;
 
+    /**
+     * @var array<int, string>
+     */
     #[ORM\Column(name: 'longest_palindromes', type: 'json')]
     private array $longest_palindromes;
 
-    #[ORM\Column(name: 'taken_time', type: 'string')]
-    private string $taken_time;
+    #[ORM\Column(name: 'taken_time', type: 'float')]
+    private float $taken_time;
 
     #[ORM\Column(name: 'created_at', type: 'datetime')]
     private \DateTime $created_at;
@@ -90,24 +115,36 @@ class Text
         $this->number_of_sentences = count($this->getSentences());
     }
 
+    /**
+     * @return string[]
+     */
     #[Ignore]
     public function getSentences(): array
     {
         return preg_split('/[.!?]+\s*/u', $this->text, flags: PREG_SPLIT_NO_EMPTY);
     }
 
+    /**
+     * @return string[]
+     */
     #[Ignore]
     public function getWordsFromSentence(string $sentence): array
     {
         return $this->getWords($sentence);
     }
 
+    /**
+     * @return string[]
+     */
     #[Ignore]
     public function getAllWords(): array
     {
         return $this->getWords($this->text);
     }
 
+    /**
+     * @return string[]
+     */
     #[Ignore]
     private function getWords(string $text): array
     {
@@ -115,7 +152,7 @@ class Text
     }
 
     #[Ignore]
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -186,7 +223,7 @@ class Text
         $this->number_of_palindromes = $number_of_palindromes;
     }
 
-    public function getAverageWordLength(): int
+    public function getAverageWordLength(): float
     {
         return $this->average_word_length;
     }
@@ -196,102 +233,150 @@ class Text
         $this->average_word_length = $average_word_length;
     }
 
-    public function getAverageNumberOfWordsInSentence(): int
+    public function getAverageNumberOfWordsInSentence(): float
     {
         return $this->average_number_of_words_in_sentence;
     }
 
-    public function setAverageNumberOfWordsInSentence(int $average_number_of_words_in_sentence): void
+    public function setAverageNumberOfWordsInSentence(float $average_number_of_words_in_sentence): void
     {
         $this->average_number_of_words_in_sentence = $average_number_of_words_in_sentence;
     }
 
+    /**
+     * @return int[]
+     */
     public function getFrequencyOfCharacters(): array
     {
         return $this->frequency_of_characters;
     }
 
+    /**
+     * @param array<string, int> $frequency_of_characters
+     */
     public function setFrequencyOfCharacters(array $frequency_of_characters): void
     {
         $this->frequency_of_characters = $frequency_of_characters;
     }
 
+    /**
+     * @return float[]
+     */
     public function getDistributionOfCharacters(): array
     {
         return $this->distribution_of_characters;
     }
 
+    /**
+     * @param array<string, float> $distribution_of_characters
+     */
     public function setDistributionOfCharacters(array $distribution_of_characters): void
     {
         $this->distribution_of_characters = $distribution_of_characters;
     }
 
+    /**
+     * @return string[]
+     */
     public function getMostUsedWords(): array
     {
         return $this->most_used_words;
     }
 
+    /**
+     * @param string[] $most_used_words
+     */
     public function setMostUsedWords(array $most_used_words): void
     {
         $this->most_used_words = $most_used_words;
     }
 
+    /**
+     * @return string[]
+     */
     public function getLongestWords(): array
     {
         return $this->longest_words;
     }
 
+    /**
+     * @param string[] $longest_words
+     */
     public function setLongestWords(array $longest_words): void
     {
         $this->longest_words = $longest_words;
     }
 
+    /**
+     * @return string[]
+     */
     public function getShortestWords(): array
     {
         return $this->shortest_words;
     }
 
+    /**
+     * @param string[] $shortest_words
+     */
     public function setShortestWords(array $shortest_words): void
     {
         $this->shortest_words = $shortest_words;
     }
 
+    /**
+     * @return string[]
+     */
     public function getLongestSentences(): array
     {
         return $this->longest_sentences;
     }
 
+    /**
+     * @param string[] $longest_sentences
+     */
     public function setLongestSentences(array $longest_sentences): void
     {
         $this->longest_sentences = $longest_sentences;
     }
 
+    /**
+     * @return string[]
+     */
     public function getShortestSentences(): array
     {
         return $this->shortest_sentences;
     }
 
+    /**
+     * @param string[] $shortest_sentences
+     */
     public function setShortestSentences(array $shortest_sentences): void
     {
         $this->shortest_sentences = $shortest_sentences;
     }
 
+    /**
+     * @return string[]
+     */
     public function getLongestPalindromes(): array
     {
         return $this->longest_palindromes;
     }
 
+    /**
+     * @param string[] $longest_palindromes
+     */
     public function setLongestPalindromes(array $longest_palindromes): void
     {
         $this->longest_palindromes = $longest_palindromes;
     }
 
-    public function getTakenTime(): string
+    public function getTakenTime(): float
     {
         return $this->taken_time;
     }
 
-    public function setTakenTime(string $taken_time): void
+    public function setTakenTime(float $taken_time): void
     {
         $this->taken_time = $taken_time;
     }

@@ -61,7 +61,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/export/xlsx/{hash}', 'export_xlsx')]
-    public function exportAsXlsx(Request $request, TextRepository $repository)
+    public function exportAsXlsx(Request $request, TextRepository $repository): StreamedResponse
     {
         $response = new StreamedResponse();
         $response->setCallback(function () use ($request, $repository) {
@@ -77,7 +77,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/export/xml/{hash}', 'export_xml')]
-    public function exportAsXml(Request $request, TextRepository $repository)
+    public function exportAsXml(Request $request, TextRepository $repository): Response
     {
         $useCase = new ImportXmlStatisticUseCase($repository);
 
@@ -90,7 +90,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/export/csv/{hash}', 'export_csv')]
-    public function exportAsCsv(Request $request, TextRepository $repository)
+    public function exportAsCsv(Request $request, TextRepository $repository): StreamedResponse
     {
         $response = new StreamedResponse();
         $response->setCallback(function () use ($request, $repository) {
@@ -106,7 +106,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/statistic', 'global_statistic')]
-    public function globalStatistic(Request $request, TextRepository $repository)
+    public function globalStatistic(Request $request, TextRepository $repository): Response
     {
         $startDate = \DateTime::createFromFormat('Y-m-d', $request->get('start_date'));
         $endDate = \DateTime::createFromFormat('Y-m-d', $request->get('end_date'));

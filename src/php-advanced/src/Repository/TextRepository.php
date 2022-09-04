@@ -50,6 +50,12 @@ class TextRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param \DateTime|false $startDate
+     * @param \DateTime|false $endDate
+     * @return array<int, int|float>|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getGlobalStatistic(\DateTime|false $startDate, \DateTime|false $endDate): ?array
     {
         $qb = $this->createQueryBuilder('t');
@@ -77,6 +83,10 @@ class TextRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @param int[] $ids
+     * @return Text[]|null
+     */
     public function findLastTen(array $ids): ?array
     {
         return $this->createQueryBuilder('t')

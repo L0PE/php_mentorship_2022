@@ -132,6 +132,10 @@ class TextProcessor
         $this->text->setMostUsedWords(array_keys(array_slice($worldUsages, 0, 10)));
     }
 
+    /**
+     * @param string[] $array
+     * @return array<string, int>
+     */
     private function getArrayWithLength(array $array): array
     {
         $flippedUniqueArray = array_flip(array_unique($array));
@@ -143,6 +147,9 @@ class TextProcessor
         return $flippedUniqueArray;
     }
 
+    /**
+     * @return string[]
+     */
     private function getPalindromes(): array
     {
         $words = $this->text->getAllWords();
@@ -156,7 +163,7 @@ class TextProcessor
         });
     }
 
-    private function getReversedString($text): string
+    private function getReversedString(string $text): string
     {
         $chars = mb_str_split($text);
 

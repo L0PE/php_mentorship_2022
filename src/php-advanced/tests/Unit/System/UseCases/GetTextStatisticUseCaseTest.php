@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ServerBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GetTextStatisticUseCaseTest extends KernelTestCase
@@ -63,7 +64,11 @@ class GetTextStatisticUseCaseTest extends KernelTestCase
         $this->sessionMock->expects($this->once())
             ->method('set');
 
-        $this->requestMock->server['REQUEST_TIME_FLOAT'] = microtime(true);
+        $this->requestMock->server = $this->createMock(ServerBag::class);
+        $this->requestMock->server->expects($this->once())
+            ->method('get')
+            ->with('REQUEST_TIME_FLOAT')
+            ->willReturn(microtime(true));
 
         $this->assertInstanceOf(Text::class, $getTextStatisticUseCase->handle($this->requestMock));
     }
