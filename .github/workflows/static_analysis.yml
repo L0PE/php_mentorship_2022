@@ -37,7 +37,7 @@ jobs:
 
     - name: Run CS for php-advanced
       run: |
-        ./vendor/bin/phpcs --standard=PSR12 ./php-advanced/src,./php-advanced/templates/
+        ./vendor/bin/phpcs --standard=PSR12 ./php-advanced/src ./php-advanced/templates/
         ./vendor/bin/phpcs --standard=PSR12 --exclude=PSR1.Methods.CamelCapsMethodName php-advanced/tests/Unit/
 
     - name: Run phpmd
