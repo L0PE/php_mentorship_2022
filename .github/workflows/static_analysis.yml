@@ -35,20 +35,20 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Run CS for PHPBasics
+    - name: Run CS for PHPBasic
       run: |
-        ./vendor/bin/phpcs --standard=PSR12 ./PHPBasics/Processor/, ./PHPBasics/index.php
+        ./vendor/bin/phpcs --standard=PSR12 ./PHPBasics/Processor/ ./PHPBasics/index.php
         ./vendor/bin/phpcs --standard=PSR12 --exclude=PSR1.Methods.CamelCapsMethodName ./PHPBasics/Tests/
-        
+
     - name: Run CS for php-advanced
       run: |
-        ./vendor/bin/phpcs --standard=PSR12 .\php-advanced\src\, .\php-advanced\templates\
-        ./vendor/bin/phpcs --standard=PSR12 --exclude=PSR1.Methods.CamelCapsMethodName .\php-advanced\tests\Unit\
-      
+        ./vendor/bin/phpcs --standard=PSR12 ./php-advanced/src ./php-advanced/templates/
+        ./vendor/bin/phpcs --standard=PSR12 --exclude=PSR1.Methods.CamelCapsMethodName php-advanced/tests/Unit/
+
     - name: Run phpmd
       run: |
-        ./vendor/bin/phpmd ./PHPBasics/Processor/,./PHPBasics/index.php text phpmd.ruleset.xml
-        ./vendor/bin/phpmd .\php-advanced\src,.\php-advanced\templates\  text phpmd.ruleset.xml
+        ./vendor/bin/phpmd ./PHPBasics/Processor/,./PHPBasics/index.php github phpmd.ruleset.xml
+        ./vendor/bin/phpmd ./php-advanced/src,./php-advanced/templates/  github phpmd.ruleset.xml
     
     - name: Run phpstan
       run: vendor/bin/phpstan analyse ./PHPBasics/Processor/ ./PHPBasics/index.php --level 6

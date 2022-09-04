@@ -26,6 +26,9 @@ class TextProcessor
         return round(array_sum($sentences) / count($sentences), 2);
     }
 
+    /**
+     * @return array<string, float>
+     */
     public function distributionOfCharactersAsPercentage(): array
     {
         $length = $this->numberOfCharacter();
@@ -43,6 +46,10 @@ class TextProcessor
         return mb_strlen($this->text);
     }
 
+
+    /**
+     * @return array<string, int>
+     */
     public function frequencyOfCharacters(): array
     {
         $frequencyOfCharacters = array_count_values(mb_str_split($this->text));
@@ -83,6 +90,9 @@ class TextProcessor
         return count($this->getWords($this->text));
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function topLongestPalindromes(): array
     {
         $palindromes = $this->getArrayWithLength($this->getPalindromes());
@@ -92,6 +102,9 @@ class TextProcessor
         return array_keys(array_slice($palindromes, 0, 10));
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function topLongestSentences(): array
     {
         $sentences = $this->getArrayWithLength($this->getSentences());
@@ -101,6 +114,9 @@ class TextProcessor
         return array_keys(array_slice($sentences, 0, 10));
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function topLongestWords(): array
     {
         $words = $this->getArrayWithLength($this->getWords($this->text));
@@ -110,6 +126,9 @@ class TextProcessor
         return array_keys(array_slice($words, 0, 10));
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function topShortestSentences(): array
     {
         $sentences = $this->getArrayWithLength($this->getSentences());
@@ -119,6 +138,9 @@ class TextProcessor
         return array_keys(array_slice($sentences, 0, 10));
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function topShortestWords(): array
     {
         $words = $this->getArrayWithLength($this->getWords($this->text));
@@ -128,6 +150,9 @@ class TextProcessor
         return array_keys(array_slice($words, 0, 10));
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function topUsedWord(): array
     {
         $words = $this->getWords($this->text);
@@ -141,6 +166,10 @@ class TextProcessor
         return array_keys(array_slice($worldUsages, 0, 10));
     }
 
+    /**
+     * @param array<int, string> $array
+     * @return array<string, int>
+     */
     private function getArrayWithLength(array $array): array
     {
         $flippedUniqueArray = array_flip(array_unique($array));
@@ -152,6 +181,9 @@ class TextProcessor
         return $flippedUniqueArray;
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getPalindromes(): array
     {
         $words = $this->getWords($this->text);
@@ -165,19 +197,25 @@ class TextProcessor
         });
     }
 
-    private function getReversedString($text): string
+    private function getReversedString(string $text): string
     {
         $chars = mb_str_split($text);
 
         return implode(array_reverse($chars));
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getSentences(): array
     {
         return preg_split('/[.!?]+\s*/u', $this->text, flags: PREG_SPLIT_NO_EMPTY);
     }
 
-    private function getWords($text): array
+    /**
+     * @return array<int, string>
+     */
+    private function getWords(string $text): array
     {
         return preg_split('/([,;.!?]*\s)|([,;.!?]+$)+/u', $text, flags: PREG_SPLIT_NO_EMPTY);
     }

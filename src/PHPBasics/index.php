@@ -30,7 +30,7 @@ require_once '..\vendor\autoload.php';
             <button id="submit" name="submit" type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
-    <?php if (isset($_POST['submit']) && isset($_POST['text']) && !empty(trim($_POST['text']))):
+    <?php if (isset($_POST['submit'], $_POST['text']) && !empty(trim($_POST['text']))) :
         $start = microtime(true);
         $textProcessor = new TextProcessor(strip_tags(stripslashes(trim($_POST['text']))));
         ?>

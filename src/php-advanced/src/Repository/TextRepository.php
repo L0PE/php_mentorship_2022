@@ -50,12 +50,18 @@ class TextRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param \DateTime|false $startDate
+     * @param \DateTime|false $endDate
+     * @return array<int, int|float>|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getGlobalStatistic(\DateTime|false $startDate, \DateTime|false $endDate): ?array
     {
         $qb = $this->createQueryBuilder('t');
 
         $qb->add('select', new Expr\Select(
-                [
+            [
                     $qb->expr()->count('t.hash'),
                     $qb->expr()->avg('t.number_of_characters'),
                     $qb->expr()->avg('t.number_of_words'),
@@ -65,8 +71,7 @@ class TextRepository extends ServiceEntityRepository
                     $qb->expr()->avg('t.average_number_of_words_in_sentence'),
                     $qb->expr()->avg('t.taken_time')
                 ]
-            )
-        );
+        ));
 
         if ($startDate && $endDate) {
             $qb->where('t.created_at >= ?1')
@@ -78,6 +83,10 @@ class TextRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @param int[] $ids
+     * @return Text[]|null
+     */
     public function findLastTen(array $ids): ?array
     {
         return $this->createQueryBuilder('t')

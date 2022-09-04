@@ -16,14 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TextController extends AbstractController
 {
-
     public function __construct(private RequestStack $requestStack)
     {
     }
 
     #[Route('/', 'home')]
-    public function processText(Request $request, StatisticUseCaseFactory $statisticUseCaseFactory, TextRepository $repository): Response
-    {
+    public function processText(
+        Request $request,
+        StatisticUseCaseFactory $statisticUseCaseFactory,
+        TextRepository $repository
+    ): Response {
         $session = $this->requestStack->getSession();
 
         $useCase = $statisticUseCaseFactory->getUseCase($request, $session);
@@ -35,7 +37,7 @@ class TextController extends AbstractController
             ]);
         }
 
-        $textEntity = $useCase->handle();
+        $textEntity = $useCase->handle($request);
 
         return is_null($textEntity) ? new Response(status: 404) : $this->render('home.html.twig', [
             'render_text_info' => true,
@@ -59,7 +61,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/export/xlsx/{hash}', 'export_xlsx')]
-    public function exportAsXlsx(Request $request, TextRepository $repository)
+    public function exportAsXlsx(Request $request, TextRepository $repository): StreamedResponse
     {
         $response = new StreamedResponse();
         $response->setCallback(function () use ($request, $repository) {
@@ -75,7 +77,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/export/xml/{hash}', 'export_xml')]
-    public function exportAsXml(Request $request, TextRepository $repository)
+    public function exportAsXml(Request $request, TextRepository $repository): Response
     {
         $useCase = new ImportXmlStatisticUseCase($repository);
 
@@ -88,7 +90,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/export/csv/{hash}', 'export_csv')]
-    public function exportAsCsv(Request $request, TextRepository $repository)
+    public function exportAsCsv(Request $request, TextRepository $repository): StreamedResponse
     {
         $response = new StreamedResponse();
         $response->setCallback(function () use ($request, $repository) {
@@ -104,7 +106,7 @@ class TextController extends AbstractController
     }
 
     #[Route('/statistic', 'global_statistic')]
-    public function globalStatistic(Request $request, TextRepository $repository)
+    public function globalStatistic(Request $request, TextRepository $repository): Response
     {
         $startDate = \DateTime::createFromFormat('Y-m-d', $request->get('start_date'));
         $endDate = \DateTime::createFromFormat('Y-m-d', $request->get('end_date'));
