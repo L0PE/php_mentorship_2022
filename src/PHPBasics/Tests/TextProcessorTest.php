@@ -3,7 +3,7 @@
 namespace PHPBasic\Tests;
 
 use PHPBasic\Processor\TextProcessor;
-use \PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TextProcessorTest extends TestCase
 {
@@ -62,7 +62,8 @@ class TextProcessorTest extends TestCase
             [
                 'романтик', 'морі', 'кит', 'на',
             ],
-            $this->textProcessor->topLongestWords());
+            $this->textProcessor->topLongestWords()
+        );
     }
 
     public function test_top_shortest_words_returns_expected_value()
@@ -71,7 +72,8 @@ class TextProcessorTest extends TestCase
             [
                 'на', 'кит', 'морі', 'романтик',
             ],
-            $this->textProcessor->topShortestWords());
+            $this->textProcessor->topShortestWords()
+        );
     }
 
     public function test_top_longest_sentences_returns_expected_value()
@@ -108,5 +110,4 @@ class TextProcessorTest extends TestCase
     {
         $this->assertSame('романтик морі на кит', $this->textProcessor->getTextInReversedOrder());
     }
-
 }

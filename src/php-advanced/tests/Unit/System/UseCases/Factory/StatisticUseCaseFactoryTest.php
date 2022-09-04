@@ -31,7 +31,11 @@ class StatisticUseCaseFactoryTest extends TestCase
         $managerRegistryMock = $this->createMock(ManagerRegistry::class);
         $httpClientMock = $this->getMockBuilder(HttpClientInterface::class)->getMock();
 
-        $this->statisticUseCaseFactory = new StatisticUseCaseFactory($textRepositoryMock, $managerRegistryMock, $httpClientMock);
+        $this->statisticUseCaseFactory = new StatisticUseCaseFactory(
+            $textRepositoryMock,
+            $managerRegistryMock,
+            $httpClientMock
+        );
 
         $this->sessionMock = $this->getMockBuilder(SessionInterface::class)->getMock();
         $this->requestMock = $this->createMock(Request::class);

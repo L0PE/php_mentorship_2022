@@ -11,12 +11,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class GetTextStatisticUseCase
 {
     public function __construct(
-        private TextRepository   $repository,
-        private ManagerRegistry  $doctrine,
+        private TextRepository $repository,
+        private ManagerRegistry $doctrine,
         private SessionInterface $session,
-        private string           $text
-    )
-    {
+        private string $text
+    ) {
     }
 
     public function handle(): Text

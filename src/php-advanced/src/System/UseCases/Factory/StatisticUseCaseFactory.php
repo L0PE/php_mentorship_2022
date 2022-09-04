@@ -14,11 +14,10 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class StatisticUseCaseFactory
 {
     public function __construct(
-        private TextRepository      $repository,
-        private ManagerRegistry     $doctrine,
+        private TextRepository $repository,
+        private ManagerRegistry $doctrine,
         private HttpClientInterface $client
-    )
-    {
+    ) {
     }
 
     public function getUseCase(Request $request, SessionInterface $session)
@@ -28,11 +27,22 @@ class StatisticUseCaseFactory
         }
 
         if ($request->get('url')) {
-            return new GetTextStatisticFromUrlUseCase($this->repository, $this->doctrine, $this->client, $session, $request->get('url'));
+            return new GetTextStatisticFromUrlUseCase(
+                $this->repository,
+                $this->doctrine,
+                $this->client,
+                $session,
+                $request->get('url')
+            );
         }
 
         if ($request->files->get('file')) {
-            return new GetTextStatisticFromFileCase($this->repository, $this->doctrine, $session, $request->files->get('file'));
+            return new GetTextStatisticFromFileCase(
+                $this->repository,
+                $this->doctrine,
+                $session,
+                $request->files->get('file')
+            );
         }
 
         return null;

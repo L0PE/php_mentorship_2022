@@ -11,13 +11,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class GetTextStatisticFromUrlUseCase
 {
     public function __construct(
-        private TextRepository      $repository,
-        private ManagerRegistry     $doctrine,
+        private TextRepository $repository,
+        private ManagerRegistry $doctrine,
         private HttpClientInterface $client,
-        private SessionInterface    $session,
-        private string              $url
-    )
-    {
+        private SessionInterface $session,
+        private string $url
+    ) {
     }
 
     public function handle(): ?Text
@@ -31,6 +30,13 @@ class GetTextStatisticFromUrlUseCase
             return null;
         }
 
-        return (new GetTextStatisticUseCase($this->repository, $this->doctrine, $this->session, $response->getContent(false)))->handle();
+        return (
+            new GetTextStatisticUseCase(
+                $this->repository,
+                $this->doctrine,
+                $this->session,
+                $response->getContent(false)
+            )
+        )->handle();
     }
 }

@@ -16,14 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TextController extends AbstractController
 {
-
     public function __construct(private RequestStack $requestStack)
     {
     }
 
     #[Route('/', 'home')]
-    public function processText(Request $request, StatisticUseCaseFactory $statisticUseCaseFactory, TextRepository $repository): Response
-    {
+    public function processText(
+        Request $request,
+        StatisticUseCaseFactory $statisticUseCaseFactory,
+        TextRepository $repository
+    ): Response {
         $session = $this->requestStack->getSession();
 
         $useCase = $statisticUseCaseFactory->getUseCase($request, $session);

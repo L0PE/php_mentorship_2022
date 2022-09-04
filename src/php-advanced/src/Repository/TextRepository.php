@@ -55,7 +55,7 @@ class TextRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('t');
 
         $qb->add('select', new Expr\Select(
-                [
+            [
                     $qb->expr()->count('t.hash'),
                     $qb->expr()->avg('t.number_of_characters'),
                     $qb->expr()->avg('t.number_of_words'),
@@ -65,8 +65,7 @@ class TextRepository extends ServiceEntityRepository
                     $qb->expr()->avg('t.average_number_of_words_in_sentence'),
                     $qb->expr()->avg('t.taken_time')
                 ]
-            )
-        );
+        ));
 
         if ($startDate && $endDate) {
             $qb->where('t.created_at >= ?1')

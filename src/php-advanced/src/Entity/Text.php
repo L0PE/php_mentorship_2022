@@ -23,7 +23,7 @@ class Text
     #[ORM\Column(name: 'text', type: 'text')]
     private string $text;
 
-    #[ORM\Column(name: 'is_palindrome', type: 'boolean',)]
+    #[ORM\Column(name: 'is_palindrome', type: 'boolean')]
     private bool $is_palindrome;
 
     #[ORM\Column(name: 'reversed_text', type: 'text')]
@@ -32,46 +32,46 @@ class Text
     #[ORM\Column(name: 'reversed_words', type: 'text')]
     private string $reversed_words;
 
-    #[ORM\Column(name: 'number_of_characters', type: 'integer',)]
+    #[ORM\Column(name: 'number_of_characters', type: 'integer')]
     private int $number_of_characters;
 
-    #[ORM\Column(name: 'number_of_words', type: 'integer',)]
+    #[ORM\Column(name: 'number_of_words', type: 'integer')]
     private int $number_of_words;
 
-    #[ORM\Column(name: 'number_of_sentences', type: 'integer',)]
+    #[ORM\Column(name: 'number_of_sentences', type: 'integer')]
     private int $number_of_sentences;
 
-    #[ORM\Column(name: 'number_of_palindromes', type: 'integer',)]
+    #[ORM\Column(name: 'number_of_palindromes', type: 'integer')]
     private int $number_of_palindromes;
 
-    #[ORM\Column(name: 'average_word_length', type: 'float',)]
+    #[ORM\Column(name: 'average_word_length', type: 'float')]
     private float $average_word_length;
 
-    #[ORM\Column(name: 'average_number_of_words_in_sentence', type: 'integer',)]
+    #[ORM\Column(name: 'average_number_of_words_in_sentence', type: 'integer')]
     private int $average_number_of_words_in_sentence;
 
-    #[ORM\Column(name: 'frequency_of_characters', type: 'json',)]
+    #[ORM\Column(name: 'frequency_of_characters', type: 'json')]
     private array $frequency_of_characters;
 
-    #[ORM\Column(name: 'distribution_of_characters', type: 'json',)]
+    #[ORM\Column(name: 'distribution_of_characters', type: 'json')]
     private array $distribution_of_characters;
 
-    #[ORM\Column(name: 'most_used_words', type: 'json',)]
+    #[ORM\Column(name: 'most_used_words', type: 'json')]
     private array $most_used_words;
 
-    #[ORM\Column(name: 'longest_words', type: 'json',)]
+    #[ORM\Column(name: 'longest_words', type: 'json')]
     private array $longest_words;
 
-    #[ORM\Column(name: 'shortest_words', type: 'json',)]
+    #[ORM\Column(name: 'shortest_words', type: 'json')]
     private array $shortest_words;
 
-    #[ORM\Column(name: 'longest_sentences', type: 'json',)]
+    #[ORM\Column(name: 'longest_sentences', type: 'json')]
     private array $longest_sentences;
 
-    #[ORM\Column(name: 'shortest_sentences', type: 'json',)]
+    #[ORM\Column(name: 'shortest_sentences', type: 'json')]
     private array $shortest_sentences;
 
-    #[ORM\Column(name: 'longest_palindromes', type: 'json',)]
+    #[ORM\Column(name: 'longest_palindromes', type: 'json')]
     private array $longest_palindromes;
 
     #[ORM\Column(name: 'taken_time', type: 'string')]
